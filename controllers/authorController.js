@@ -142,6 +142,7 @@ exports.author_delete_post = async (req, res, next) => {
 exports.author_update_get = async (req, res, next) => {
   const author = await Author.findById(req.params.id).exec()
 
+
   if (author === null) {
     // No results.
     const err = new Error('Author not found')
@@ -151,7 +152,7 @@ exports.author_update_get = async (req, res, next) => {
 
   res.render('author_form', {
     title: 'Update Author',
-    author: author,
+    author: author
   })
 }
 
@@ -196,6 +197,7 @@ exports.author_update_post = [
     })
 
     if (!errors.isEmpty()) {
+
       // There are errors. Render form again with sanitized values/error messages.
       res.render('author_form', {
         title: 'Update Author',
