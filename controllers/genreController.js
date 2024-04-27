@@ -81,10 +81,6 @@ exports.genre_create_post = [
 
 // Display Genre delete form on GET.
 exports.genre_delete_get = async (req, res, next) => {
-  res.send('NOT IMPLEMENTED: Genre delete GET')
-}
-
-exports.genre_delete_get = async (req, res, next) => {
   // Get details of genre
   const [genre, allBooksByGenre] = await Promise.all([
     Genre.findById(req.params.id).exec(),
@@ -112,7 +108,7 @@ exports.genre_delete_post = async (req, res, next) => {
     Book.find({ genre: req.params.id }, 'title summary').exec(),
   ])
   if (genre === null) {
-    res.redirect('/catalog/genre')
+    res.redirect('/catalog/genres')
   }
   if (allBooksByGenre.length > 0) {
     // Genre has books. Render in same way as for GET route.
