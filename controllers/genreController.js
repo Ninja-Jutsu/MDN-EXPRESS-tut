@@ -84,6 +84,25 @@ exports.genre_delete_get = async (req, res, next) => {
   res.send('NOT IMPLEMENTED: Genre delete GET')
 }
 
+exports.genre_delete_get = async (req, res, next) => {
+  // Get details of genre
+  const [genre, allBooksByGenre] = await Promise.all([
+    Genre.findById(req.params.id).exec(),
+    Book.find({ genre: req.params.id }).exec(),
+  ])
+
+  if (genre === null) {
+    // No results.
+    res.redirect('/catalog/genres')
+  }
+
+  res.render('genre_delete', {
+    title: 'Delete Genre',
+    genre: genre,
+    genre_books: allBooksByGenre,
+  })
+}
+
 // Handle Genre delete on POST.
 exports.genre_delete_post = async (req, res, next) => {
   res.send('NOT IMPLEMENTED: Genre delete POST')
