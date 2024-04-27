@@ -141,8 +141,6 @@ exports.author_delete_post = async (req, res, next) => {
 // Display Author update form on GET.
 exports.author_update_get = async (req, res, next) => {
   const author = await Author.findById(req.params.id).exec()
-
-
   if (author === null) {
     // No results.
     const err = new Error('Author not found')
