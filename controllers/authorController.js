@@ -1,4 +1,4 @@
-require('express-async-errors')
+const debug = require('debug')('author')
 const { body, validationResult } = require('express-validator')
 const Author = require('../models/author')
 const Book = require('../models/book')
@@ -19,7 +19,7 @@ exports.author_detail = async (req, res, next) => {
     Book.find({ author: req.params.id }, 'title summary').exec(),
   ])
   if (author === null) {
-    const err = new Error('no such book')
+    const err = new Error('no such author')
     res.status(404)
     return next(err)
   }
@@ -143,14 +143,14 @@ exports.author_update_get = async (req, res, next) => {
   const author = await Author.findById(req.params.id).exec()
   if (author === null) {
     // No results.
+    debug(`id found on update: ${req.params.id}`)
     const err = new Error('Author not found')
     err.status = 404
     return next(err)
   }
-
   res.render('author_form', {
     title: 'Update Author',
-    author: author
+    author: author,
   })
 }
 
@@ -195,7 +195,6 @@ exports.author_update_post = [
     })
 
     if (!errors.isEmpty()) {
-
       // There are errors. Render form again with sanitized values/error messages.
       res.render('author_form', {
         title: 'Update Author',
