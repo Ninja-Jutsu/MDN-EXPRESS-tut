@@ -23,7 +23,7 @@ mongoose.set('strictQuery', false)
 // const dev_db_url =
 //   'mongodb+srv://ninja:7.Orangina@cluster0.bzsjq4g.mongodb.net/'
 // || dev_db_url`
-const mongoDB = process.env.MONGODB_URL || "mongodb+srv://ninja:7.Orangina@cluster0.bzsjq4g.mongodb.net/"
+const mongoDB = process.env.MONGODB_URL
 
 main().catch((err) => console.log(err))
 
